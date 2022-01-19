@@ -26,16 +26,21 @@ int get_change(int m) {
   }
 
   else{
+    
     int t = m;
     m = m/10;
     d = t%10;
 
-    if(d == 0){
-      total_count = m;
+    if(d < 5){
+      total_count = m + d;
     }
-    else{
-      total_count = m + (d%10)%5+1;
+    else if(d > 5){
+      total_count = m + d%5 + 1;
     }
+    else if(d == 5){
+      total_count = m + 1;
+    }
+    
   }
 
   return total_count;
