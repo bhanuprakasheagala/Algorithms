@@ -8,8 +8,6 @@ Leet Code:  https://leetcode.com/Bhanuprakash_Eagala/
 
 HackerRank: https://www.hackerrank.com/Bhanu_TheLearner
 
-Interviewbit: https://www.interviewbit.com/profile/bhanuprakash_eagala
-
 CodeChef: https://www.codechef.com/users/sharp_cipher
 
 
