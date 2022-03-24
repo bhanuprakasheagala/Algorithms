@@ -28,3 +28,26 @@ Explanation: 4 boats (3), (3), (4), (5)
 @LeetCode
 
 */
+class Solution {
+public:
+    int numRescueBoats(vector<int>& people, int limit) {
+        int n =  people.size();
+        sort(people.begin(), people.end());
+        
+        int i=0;
+        int j = n-1;
+        int boatCount = 0;
+        
+        while(i <= j){
+            if(people[i]+people[j] <= limit){
+                i++;
+                j--;
+            }
+            else{
+                j--;
+            }
+            boatCount++;
+        }
+        return boatCount;
+    }
+};
