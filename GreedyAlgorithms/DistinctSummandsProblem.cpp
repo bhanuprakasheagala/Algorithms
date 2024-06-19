@@ -6,7 +6,7 @@ integers.
 
 Input format. An integer n.
 Output format. In the first line, output the maximum number k such that n can be represented as
-the sum of k pairwise distinct positive in- tegers. In the second line, output k pairwise distinct
+the sum of k pairwise distinct positive integers. In the second line, output k pairwise distinct
 positive integers that sum up to n (if there are multiple such representations, output any of them).
 
 Constraints. 1 ≤ n ≤ 109.
