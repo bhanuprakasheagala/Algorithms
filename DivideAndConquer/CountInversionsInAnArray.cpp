@@ -73,3 +73,32 @@ int main()
 
     return 0;
 }
+
+/*
+Notes:
+
+This program implements an efficient algorithm to count the number of inversions in an array using a modified merge sort.
+An inversion is defined as a pair of indices (i, j) such that (i < j) and (A[i] > A[j]). The merge sort algorithm is ideal 
+for this task because it naturally divides the array into smaller subarrays, sorts them, and counts inversions as it merges 
+the sorted subarrays back together. By leveraging the divide-and-conquer approach, the program is able to count inversions 
+in O(nlogn) time, making it much more efficient than the naive O(n^2) approach.
+
+The program works by recursively splitting the array into two halves, counting inversions in each half, and then counting
+split inversions (inversions that involve elements from both halves) during the merge process. During merging, if an element
+in the right subarray is smaller than an element in the left subarray, this indicates that all remaining elements in the left
+subarray are also greater, contributing to the inversion count. The program updates the inversion count in a single step for
+these cases, ensuring that the overall algorithm remains efficient while accurately counting all inversions in the array.
+
+Example
+For the array [1, 20, 6, 4, 5]:
+
+Split:
+Left half: [1, 20, 6]
+Right half: [4, 5]
+
+Merge and Count:
+Merging [1, 20, 6] results in [1, 6, 20] with 2 inversions (20 > 6).
+Merging [1, 6, 20] and [4, 5] results in [1, 4, 5, 6, 20] with 3 more inversions (6 > 4, 6 > 5, and 20 > 5).
+
+Total Inversions: The total number of inversions is 5.
+*/
