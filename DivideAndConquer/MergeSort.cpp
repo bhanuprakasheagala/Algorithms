@@ -95,5 +95,16 @@ int main()
     printArray(doubleArr);
 
 
+    // Example with Strings
+    std::vector<std::string> strArr = {"def", "acb", "jkl", "ghi"};
+    
+    std::cout << "Original String Array: ";
+    printArray(strArr);
+
+    mergeSort(strArr, 0, strArr.size()-1);
+
+    std::cout << "Sorted string Array: ";
+    printArray(strArr);
+
     return 0;
 }
