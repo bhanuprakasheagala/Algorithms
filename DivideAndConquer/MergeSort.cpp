@@ -108,3 +108,127 @@ int main()
 
     return 0;
 }
+
+/*
+Notes:
+
+Let's walk through the Merge Sort process with a visual representation at every step using the 
+example array `[38, 27, 43, 3, 9, 82, 10]`.
+
+### Original Array
+```
+[38, 27, 43, 3, 9, 82, 10]
+```
+
+### Step 1: Divide the Array
+
+#### First Split
+- Split the array into two halves:
+```
+Left half:  [38, 27, 43]
+Right half: [3, 9, 82, 10]
+```
+
+#### Further Split
+- Recursively split until each subarray contains only one element:
+
+**Left Half `[38, 27, 43]`**
+```
+Split:      [38, 27]      [43]
+Further Split: [38]  [27]
+```
+
+**Right Half `[3, 9, 82, 10]`**
+```
+Split:      [3, 9]      [82, 10]
+Further Split: [3]  [9]      [82]  [10]
+```
+
+At this point, the array is divided into individual elements:
+```
+[38] [27] [43] [3] [9] [82] [10]
+```
+
+### Step 2: Conquer and Combine (Merge Step)
+
+Now, we'll start merging the elements back together in a sorted order.
+
+#### Merge Step 1: Merge Single Elements into Sorted Pairs
+
+**Merging `[38]` and `[27]`:**
+```
+[27, 38]
+```
+**Merging `[3]` and `[9]`:**
+```
+[3, 9]
+```
+**Merging `[82]` and `[10]`:**
+```
+[10, 82]
+```
+
+Now, the array looks like this:
+```
+[27, 38] [43] [3, 9] [10, 82]
+```
+
+#### Merge Step 2: Merge Sorted Pairs and Single Elements
+
+**Merging `[27, 38]` and `[43]`:**
+```
+[27, 38, 43]
+```
+**Merging `[3, 9]` and `[10, 82]`:**
+```
+[3, 9, 10, 82]
+```
+
+Now, the array looks like this:
+```
+[27, 38, 43] [3, 9, 10, 82]
+```
+
+### Step 3: Final Merge
+
+Finally, merge the two sorted subarrays `[27, 38, 43]` and `[3, 9, 10, 82]`:
+
+**Merging `[27, 38, 43]` and `[3, 9, 10, 82]`:**
+```
+Compare 27 and 3 → [3]
+Compare 27 and 9 → [3, 9]
+Compare 27 and 10 → [3, 9, 10]
+Compare 27 and 82 → [3, 9, 10, 27]
+Compare 38 and 82 → [3, 9, 10, 27, 38]
+Compare 43 and 82 → [3, 9, 10, 27, 38, 43]
+Add remaining 82 → [3, 9, 10, 27, 38, 43, 82]
+```
+
+### Final Sorted Array
+```
+[3, 9, 10, 27, 38, 43, 82]
+```
+
+### Visual Summary of Steps
+
+```
+Step 1: Divide
+Original Array: [38, 27, 43, 3, 9, 82, 10]
+[38, 27, 43]      [3, 9, 82, 10]
+
+Further Split:
+[38, 27] [43]      [3, 9] [82, 10]
+[38] [27] [43]      [3] [9] [82] [10]
+
+Step 2: Conquer and Combine
+Merge Step 1:
+[27, 38] [43]      [3, 9] [10, 82]
+
+Merge Step 2:
+[27, 38, 43]      [3, 9, 10, 82]
+
+Final Merge:
+[3, 9, 10, 27, 38, 43, 82]
+```
+
+*/
