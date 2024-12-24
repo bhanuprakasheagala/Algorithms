@@ -91,12 +91,144 @@ The LPS array for a pattern `P` is built as follows:
 ##### Key Differentiator
 The KMP algorithm avoids rechecking matched characters by leveraging the LPS array, leading to linear time complexity for matching.
 
-#### **Conclusion**
-The KMP algorithm is a significant improvement over the naive approach for string matching problems. By preprocessing the pattern into an LPS array, it avoids redundant comparisons, achieving linear time complexity. With its elegant design and efficiency, KMP remains a cornerstone in the study of algorithms.
+Here’s a **more detailed version of the KMP algorithm explanation** with step-by-step examples and ASCII diagrams to make the concepts clear. I’ll include a thorough discussion of the naive algorithm, KMP's preprocessing phase (LPS), and its search phase with detailed illustrations. 
 
---- 
+---
 
-#### **Exercises**
-1. Build the LPS array for the pattern `"aabaabaaa"`.
-2. Modify the above C++ code to handle case-insensitive string matching.
-3. Analyze the performance of KMP on repetitive patterns like `"aaaaa"` in `"aaaaaaaaaa"`.
+### An Example
+
+---
+
+### **Introduction to the Problem**
+The task of string matching is to find all occurrences of a pattern `P` within a text `T`. For example:
+
+- **Text (`T`)**: `"abcabcabcd"`
+- **Pattern (`P`)**: `"abcab"`
+
+The naive solution is simple but inefficient for large inputs or repetitive patterns. The KMP algorithm overcomes this inefficiency using preprocessing to achieve linear time complexity.
+
+---
+
+### **The Naive Approach**
+The naive algorithm attempts to match `P` at every position in `T`, moving one character at a time.
+
+#### **Example 1: Matching `"abcab"` in `"abcabcabcd"`**
+1. Align `P` with the start of `T`.
+   ```
+   Text (T):    abcabcabcd
+   Pattern (P): abcab
+   ```
+   Compare each character. All characters match.
+
+2. Slide `P` one position forward and repeat:
+   ```
+   Text (T):    abcabcabcd
+                abcab
+   ```
+   The match fails at the first character.
+
+3. Continue sliding until a match is found or all positions are checked.
+
+---
+
+#### **Limitations of the Naive Approach**
+If the text and pattern contain repetitive sequences, the naive algorithm wastes time by recomparing characters that were previously matched. For example:
+
+#### **Example 2: Matching `"aaaa"` in `"aaaaaaaa"`**
+- Each match fails at the fourth character, but the naive algorithm retries all matched characters from scratch. This leads to quadratic complexity: **O(n × m)** in the worst case.
+
+---
+
+### **The KMP Algorithm**
+The KMP algorithm addresses the inefficiencies of the naive approach by **avoiding redundant comparisons**. It preprocesses the pattern into a **Longest Prefix Suffix (LPS)** array, which helps decide how far to slide the pattern upon a mismatch.
+
+#### **Core Idea**
+When a mismatch occurs:
+- Instead of shifting `P` by one position, use the LPS array to determine the optimal shift.
+- This ensures we skip unnecessary comparisons.
+
+---
+
+### **Step 1: Building the LPS Array**
+The LPS array stores the length of the longest proper prefix of the pattern that is also a suffix for every substring of `P`.
+
+- **Proper prefix**: A prefix that is not equal to the full string.
+- **Proper suffix**: A suffix that is not equal to the full string.
+
+---
+
+#### **Example: Building LPS for `"ababaca"`**
+1. Start with `lps[0] = 0`. A single character has no proper prefix or suffix.
+2. Gradually build the LPS array:
+   ```
+   Pattern:   a  b  a  b  a  c  a
+   Index:     0  1  2  3  4  5  6
+   LPS:       0  0  1  2  3  0  1
+   ```
+   - At `P[2]`: Prefix = `"a"`, Suffix = `"a"`. LPS = 1.
+   - At `P[3]`: Prefix = `"ab"`, Suffix = `"ab"`. LPS = 2.
+   - At `P[4]`: Prefix = `"aba"`, Suffix = `"aba"`. LPS = 3.
+   - At `P[5]`: Mismatch. LPS = 0.
+   - At `P[6]`: Prefix = `"a"`, Suffix = `"a"`. LPS = 1.
+
+---
+
+#### **ASCII Visualization of LPS**
+For `"ababaca"`, visualize matching prefixes and suffixes:
+```
+Pattern: a  b  a  b  a  c  a
+Prefix:  a  ab aba abab
+Suffix:     ab aba abab
+```
+
+---
+
+### **Step 2: Searching with KMP**
+Use the LPS array during the search phase to efficiently align the pattern with the text after a mismatch.
+
+#### **Example: Matching `"ababaca"` in `"ababcababaca"`**
+1. Start at `T[0]` and match `"ababaca"` with `"ababcab"`:
+   ```
+   Text (T):    ababcababaca
+   Pattern (P): ababaca
+   ```
+   Mismatch at `T[4]`. Use `LPS[3] = 2` to slide `P`:
+   ```
+   Text (T):    ababcababaca
+                  ababaca
+   ```
+2. Resume matching. Another mismatch at `T[8]`. Use `LPS[6] = 1` to slide `P`:
+   ```
+   Text (T):    ababcababaca
+                       ababaca
+   ```
+3. Match found starting at `T[7]`.
+
+---
+
+#### **ASCII Visualization of Search**
+```
+Step 1:
+Text (T):    ababcababaca
+Pattern (P): ababaca
+             ^^^^^
+Mismatch at `c`.
+
+Step 2:
+Text (T):    ababcababaca
+             ababaca
+                ^^^^
+Mismatch at `b`.
+
+Step 3:
+Text (T):    ababcababaca
+                   ababaca
+                   ^^^^^^^
+Match found.
+
+---
+
+### **Key Takeaways**
+1. The LPS array is central to the efficiency of KMP, allowing the algorithm to skip unnecessary comparisons.
+2. KMP achieves **O(n + m)** complexity, significantly outperforming the naive approach in repetitive patterns.
+3. Understanding LPS construction and its role in search is essential for mastering KMP.
